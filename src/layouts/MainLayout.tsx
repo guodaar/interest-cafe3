@@ -1,9 +1,15 @@
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from "react";
 
-const MainLayout = ({children}: PropsWithChildren) => {
+import { Box } from "@mui/material";
+import TopBar from "../components/TopBar/TopBar";
+
+const MainLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div>{children}</div>
-  )
-}
+    <Box>
+      <TopBar />
+      <Box p={4}>{children}</Box>
+    </Box>
+  );
+};
 
-export default MainLayout
+export default MainLayout;
