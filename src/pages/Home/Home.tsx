@@ -1,3 +1,5 @@
+import { ImageList, ImageListItem } from "@mui/material";
+
 import { useImages } from "../../hooks/images";
 
 const Home = () => {
@@ -5,11 +7,19 @@ const Home = () => {
   const images = data || [];
 
   return (
-    <div>
-      {images.map((image) => (
-        <img key={image.id} src={image.previewURL} />
+    <ImageList variant="masonry" cols={4} gap={8}>
+      {images.map((item) => (
+        <ImageListItem key={item.previewURL}>
+          <img
+            src={`${item.webformatURL}?w=248&fit=crop&auto=format`}
+            srcSet={`${item.webformatURL}?w=248&fit=crop&auto=format&dpr=2 2x`}
+            alt={item.id.toString()}
+            loading="lazy"
+            style={{ borderRadius: "5px" }}
+          />
+        </ImageListItem>
       ))}
-    </div>
+    </ImageList>
   );
 };
 
