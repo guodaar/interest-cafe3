@@ -1,14 +1,19 @@
 import * as React from "react";
 
-import { alpha, styled } from "@mui/material/styles";
+import { Button, Menu, MenuItem } from "@mui/material";
+import { alpha, styled, useThemeProps } from "@mui/material/styles";
+import { bindMenu, bindTrigger } from "material-ui-popup-state/hooks";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import PopupState from "material-ui-popup-state";
 import SearchIcon from "@mui/icons-material/Search";
 import Toolbar from "@mui/material/Toolbar";
+import TopbarMenu from "./TopBarMenu";
 import Typography from "@mui/material/Typography";
 
 const Search = styled("div")(({ theme }) => ({
@@ -19,9 +24,10 @@ const Search = styled("div")(({ theme }) => ({
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: 0,
+  marginRight: theme.spacing(1),
   width: "100%",
   [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
+    marginLeft: theme.spacing(2),
     width: "auto",
   },
 }));
@@ -45,9 +51,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: "12ch",
+      width: "22ch",
       "&:focus": {
-        width: "20ch",
+        width: "30ch",
       },
     },
   },
@@ -55,8 +61,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const TopBar = () => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1, position: "sticky", top: 0, zIndex: 2 }}>
+      <AppBar position="sticky">
         <Toolbar>
           <Typography
             variant="h6"
@@ -75,6 +81,7 @@ const TopBar = () => {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
+          <TopbarMenu />
         </Toolbar>
       </AppBar>
     </Box>
