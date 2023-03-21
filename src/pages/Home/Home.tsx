@@ -5,13 +5,26 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import LinearProgress from "@mui/material/LinearProgress";
 import { PixabayImage } from "../../types/image";
 import { uniqBy } from "lodash";
+import { useAppSelector } from "../../hooks/store";
 import { useImages } from "../../hooks/images";
 
 const Home = () => {
+  const searchValue = useAppSelector((state) => state.search.value);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [page, setPage] = useState(1);
   const [items, setItems] = useState<PixabayImage[]>([]);
-  const { data, isLoading } = useImages(page);
+  const { data, isLoading } = useImages(page, debouncedSearch);
   const images = data || [];
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (searchValue) {
+        setDebouncedSearch(searchValue);
+        setPage(1);
+        setItems([]);
+      }
+    }, 1000);
+  }, [searchValue]);
 
   useEffect(() => {
     if (!isLoading) {
